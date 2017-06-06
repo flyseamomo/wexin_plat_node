@@ -24,7 +24,7 @@ module.exports = async (ctx,next)=>{
   }else callback = await redis.get('callback')
 
   let code = querystring.parse(ctx.querystring).code
-  let url = encodeURIComponent('https://wx.shnavy.com/app/auth')
+  let url = encodeURIComponent('http://api.diandianyy.com/util/weixin/app/auth')
   if(code){
     console.log('code',code)
     let obj = await getOpenid(code,wxid)
