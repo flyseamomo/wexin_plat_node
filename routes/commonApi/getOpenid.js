@@ -24,7 +24,7 @@ module.exports = async (ctx,next)=>{
   //}else callback = await redis.get('callback')
 
   let code = querystring.parse(ctx.querystring).code
-  let url = encodeURIComponent(ctx.request.href)
+  let url = encodeURIComponent('http://api.diandianyy.com/util/weixin/app/auth?callback=' + callback + '&wxid=' + wxid)
     console.log('url',url)
   if(code){
     console.log('code',code)
