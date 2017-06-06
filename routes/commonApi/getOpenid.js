@@ -25,6 +25,7 @@ module.exports = async (ctx,next)=>{
 
   let code = querystring.parse(ctx.querystring).code
   let url = encodeURIComponent('http://api.diandianyy.com/util/weixin/app/auth')
+    console.log('url',url)
   if(code){
     console.log('code',code)
     let obj = await getOpenid(code,wxid)
