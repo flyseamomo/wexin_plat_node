@@ -7,6 +7,6 @@ module.exports = async (xml) => {
     subscribe:0,
     unsubscribe_time:parseInt(new Date().getTime() / 1000)
   }
-  let opt = await query('UPDATE wechat_config SET ? WHERE openid = ?', [obj,openid])
+  let opt = await query('UPDATE wechat_user SET ? WHERE openid = ?', [obj,openid])
   console.log('unsubscribe',opt)
 }

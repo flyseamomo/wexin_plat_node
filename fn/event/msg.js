@@ -3,6 +3,7 @@
   const wechat_user = require('../wechat/wechat_user')
   const subscribe = require('./subscribe')
   const sendMsg = require('../wechat/sendMsg')
+  const request = require('superagent')
 
   module.exports = async(xml) => {
       let originalid = xml.ToUserName[0]

@@ -2,6 +2,7 @@
   const Authorizer_access_token = require('../../common/authorizer_access_token')
   const wechat_user = require('../wechat/wechat_user')
   const subscribe = require('./subscribe')
+  const request = require('superagent')
 
   module.exports = async(xml) => {
       let originalid = xml.ToUserName[0]

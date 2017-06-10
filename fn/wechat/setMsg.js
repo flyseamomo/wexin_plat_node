@@ -1,6 +1,3 @@
-/**
- * Created by Administrator on 2017/4/1.
- */
 const request = require('superagent')
 const query = require('../../utils/query').query
 
