@@ -19,7 +19,7 @@
       if (result.obj.length > 0) {
           sendMsg(appid, xml.FromUserName[0], 'text', result.obj[0].reply, null)
           if (result.obj[0].postUrl) {
-              let post = await request('POST', result.obj[0].postUrl).send(ctx.xml)
+              let post = await request('POST', result.obj[0].postUrl).send(xml)
               console.log('post', post.text)
           }
       }
