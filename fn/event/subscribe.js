@@ -16,7 +16,7 @@ module.exports = async(xml) => {
             //注册或更新wechat_user
         await wechat_user(appid, openid)
             //发送欢迎词
-        let result = query('SELECT * FROM msg WHERE appid = ? AND msg_str = ?', [appid, 'subscribe'])
+        let result = await query('SELECT * FROM msg WHERE appid = ? AND msg_str = ?', [appid, 'subscribe'])
         console.log('subscribe_msg',result)
         if (result.obj.length > 0) {
             sendMsg(appid, xml.FromUserName[0], 'text', result.obj[0].reply, null)

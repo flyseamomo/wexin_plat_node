@@ -14,7 +14,7 @@
       console.log('msg_event_appid',opt)
       let appid = opt.obj[0].appid
       //发送关键词
-      let result = query('SELECT * FROM msg WHERE appid = ? AND msg_str = ?', [appid, msg_str])
+      let result = await query('SELECT * FROM msg WHERE appid = ? AND msg_str = ?', [appid, msg_str])
       console.log('meg_event_str',result)
       if (result.obj.length > 0) {
           sendMsg(appid, xml.FromUserName[0], 'text', result.obj[0].reply, null)
