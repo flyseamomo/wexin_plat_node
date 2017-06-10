@@ -26,7 +26,8 @@ const getTagList = require('./commonApi/getTagList')
 const setTag = require('./commonApi/setTag')
 const removeTag = require('./commonApi/removeTag')
 const getUserTags = require('./commonApi/getUserTags')
-
+const setKeyWords = require('./commonApi/setKeyWords')
+const setWelcome = require('./commonApi/setWelcome')
 
 //获取用户列表
 router.post('/getwechatuserlist',getWechatUserList)
@@ -70,5 +71,9 @@ router.post('/settag',setTag)
 router.post('/removetag',removeTag)
 //获取用户的标签列表
 router.post('/getusertags',getUserTags)
+//设置关键词回复
+router.post('/setkeywords',setKeyWords)
+//设置欢迎语
+router.post('/setwelcome',setWelcome)
 
 module.exports = router

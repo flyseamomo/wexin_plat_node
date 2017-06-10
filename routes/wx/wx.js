@@ -9,6 +9,10 @@ const sendMsg = require('../../fn/wechat/sendMsg')
 const encrypt = require('../../common/encrypt')
 const Component_access_token = require('../../common/component_access_token')
 const plat = require('../../config/constant')
+const msg_event = require('../../fn/event/msg')
+const scan_event = require('../../fn/event/scan')
+const subscribe_event = require('../../fn/event/subscribe')
+const unsubscribe_event = require('../../fn/event/unsubscribe')
 
 router.post('/:appid', xml, (ctx, next) => {
   return new Promise(async (resolve,reject) =>{
@@ -68,15 +72,17 @@ router.post('/:appid', xml, (ctx, next) => {
         console.log('msg', msg)
         resolve(msg)
       }
-    }else if(ctx.xml.MsgType[0] == 'event'){
-      if(ctx.xml.Ticket){
-        resolve('success')
-        let result = await query('SELECT postUrl FROM qrcode WHERE ticket = ?',ctx.xml.Ticket[0])
-        console.log('result',result.obj[0].postUrl)
-        let post = await request('POST', result.obj[0].postUrl).send(ctx.xml)
-        console.log('post',post.text)
-      }
-    }else resolve('success')
+    }else{
+      resolve('success')
+      //扫码事件
+      if(ctx.xml.Ticket) await scan_event(ctx.xml)
+      //关注事件
+      if(ctx.xml.Event[0] == 'subscribe') await subscribe_event(ctx.xml)
+      //取消关注事件
+      if(ctx.xml.Event[0] == 'unsubscribe') await unsubscribe_event(ctx.xml)
+      //文本消息事件
+      if(ctx.xml.MsgType[0] == 'text') await msg_event(ctx.xml)
+    } 
   }).then((data)=>{
     console.log('data',data)
     ctx.body = data
