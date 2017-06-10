@@ -1,5 +1,6 @@
 const query = require('../../utils/query').query
 const Authorizer_access_token = require('../../common/authorizer_access_token')
+const request = require('superagent')
 
 module.exports = async (appid,openid) => {
   console.log('openid',openid)
