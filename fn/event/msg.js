@@ -11,7 +11,7 @@
       let msg_str = xml.Content[0]
       //根据originalid查询appid
       let opt = await query('SELECT appid FROM wechat_config WHERE originalid = ?', originalid)
-      appid = opt.obj[0].appid
+      let appid = opt.obj[0].appid
       //发送关键词
       let result = query('SELECT * FROM msg WHERE appid = ? AND msg_str = ?', [appid, msg_str])
       if (result.obj.length > 0) {

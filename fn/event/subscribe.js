@@ -12,7 +12,7 @@ module.exports = async(xml) => {
     let opt = await query('SELECT appid FROM wechat_config WHERE originalid = ?', originalid)
     console.log('subscribe_appid', opt)
     if (opt.obj) {
-        appid = opt.obj[0].appid
+        let appid = opt.obj[0].appid
             //注册或更新wechat_user
         await wechat_user(appid, openid)
             //发送欢迎词
