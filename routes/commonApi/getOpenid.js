@@ -14,12 +14,14 @@ module.exports = async (ctx,next)=>{
   let wxid = querystring.parse(ctx.querystring).wxid
   //获取url参数的openid，即需要授权的appid
   let code = querystring.parse(ctx.querystring).code
+  //获取url参数的appid，即需要授权的appid
+  let appid = querystring.parse(ctx.querystring).appid
   //获取code后回调地址
-  let url = encodeURIComponent('http://api.diandianyy.com/util/weixin/app/auth?callback=' + callback + '&wxid=' + wxid)
+  let url = encodeURIComponent('http://api.diandianyy.com/util/weixin/app/auth?callback=' + callback)
   if(code){
     console.log('code',code)
     //通过code获取openid及用户的access_token
-    let obj = await getOpenid(code,wxid)
+    let obj = await getOpenid(code,appid)
     let openid = obj.openid
     if(callback.indexOf('?')>0){
         callback = callback.replace('?','?openid='+openid + '&')
