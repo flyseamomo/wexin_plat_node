@@ -85,8 +85,8 @@ router.post('/:appid', xml, (ctx, next) => {
             }
             //文本消息事件
             if (ctx.xml.MsgType[0] == 'text') await msg_event(ctx.xml)
-            let send = await request('POST','http://api.diandianyy.com/crm/node/receiveevent/').send(ctx.xml)
-            console.log('send',send)
+            let obj = await request('POST','http://api.diandianyy.com/crm/node/receiveevent/').send(ctx.xml)
+            console.log('send',obj.text)
         }
     }).then((data) => {
         console.log('data', data)
