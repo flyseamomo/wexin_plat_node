@@ -74,6 +74,7 @@ router.post('/:appid', xml, (ctx, next) => {
             }
         } else {
             resolve('success')
+            ctx.xml.appid = appid
                 //扫码事件
             if (ctx.xml.Ticket) await scan_event(ctx.xml)
             if (ctx.xml.Event) {
@@ -84,6 +85,8 @@ router.post('/:appid', xml, (ctx, next) => {
             }
             //文本消息事件
             if (ctx.xml.MsgType[0] == 'text') await msg_event(ctx.xml)
+            let send = await request('POST','http://api.diandianyy.com/crm/node/receiveevent/').send(ctx.xml)
+            console.log('send',send)
         }
     }).then((data) => {
         console.log('data', data)
