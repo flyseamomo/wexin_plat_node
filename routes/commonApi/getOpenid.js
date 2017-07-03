@@ -6,6 +6,7 @@ const querystring = require("querystring")
 const plat = require('../../config/constant')
 const query = require('../../utils/query').query
 const request = require('superagent')
+const wechat_user = require('../../fn/wechat/wechat_user')
 
 module.exports = async (ctx,next)=>{
   //获取url参数的callback，即需要调用本接口的前端的回调地址
@@ -28,16 +29,15 @@ module.exports = async (ctx,next)=>{
     }
     ctx.redirect(callback+'?openid='+openid)
     //判断用户是否已注册wechat_user
-    let user = await query('SELECT * FROM wechat_user WHERE openid = ?', obj.openid)
-    console.log('user',user)
-    if (user.obj.length == 0) {
+    let user = await wechat_user(appid, openid)
+    if (!user.nickname) {
       //未注册则获取用户基本信息
-      // let result = await request('GET','https://api.weixin.qq.com/sns/userinfo?access_token=' + obj.access_token + '&openid=' + obj.openid + '&lang=zh_CN')
-      // result = JSON.parse(result.text)
-      // console.log('result',result)
-      // //删除特权属性
-      // delete result.privilege
-      // await query('UPDATE wechat_user SET ? WHERE openid = ?',[result,obj.openid])
+      let result = await request('GET','https://api.weixin.qq.com/sns/userinfo?access_token=' + obj.access_token + '&openid=' + obj.openid + '&lang=zh_CN')
+      result = JSON.parse(result.text)
+      console.log('result',result)
+      //删除特权属性
+      delete result.privilege
+      await query('UPDATE wechat_user SET ? WHERE openid = ?',[result,obj.openid])
     }
     
   }else{
