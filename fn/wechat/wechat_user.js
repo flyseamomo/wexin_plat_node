@@ -9,7 +9,7 @@ module.exports = async (appid,openid) => {
   console.log('user',user)
   if (user.obj.length>0) {
     //已注册直接返回该用户的信息
-    return user
+    return user[0]
   }else{
     //未注册则先获取用户基本信息
     let authorizer_access_token = await Authorizer_access_token(appid)
