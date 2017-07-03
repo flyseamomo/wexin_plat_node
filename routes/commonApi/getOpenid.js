@@ -37,7 +37,7 @@ module.exports = async (ctx,next)=>{
       console.log('result',result)
       //删除特权属性
       delete result.privilege
-      await query('UPDATE wechat_user SET ? WHERE openid = ?',[result,obj.openid])
+      await query('INSERT INTO wechat_user SET ?',result)
     }
     
   }else{
