@@ -16,7 +16,7 @@ module.exports = async (appid,openid) => {
 
     let result = await request('GET','https://api.weixin.qq.com/cgi-bin/user/info?access_token=' + authorizer_access_token + '&openid=' + openid +'&lang=zh_CN')
     result = JSON.parse(result.text)
-
+    console.log('get userInfo from wechat', result)
     delete result.tagid_list
     //注册用户
     await query('INSERT INTO wechat_user SET ?',result)
