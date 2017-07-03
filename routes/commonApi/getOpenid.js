@@ -27,18 +27,19 @@ module.exports = async (ctx,next)=>{
         callback = callback.replace('?','?openid='+openid + '&')
     }
     ctx.redirect(callback+'?openid='+openid)
-    //获取用户基本信息
-    let result = await request('GET','https://api.weixin.qq.com/sns/userinfo?access_token=' + obj.access_token + '&openid=' + obj.openid + '&lang=zh_CN')
-    result = JSON.parse(result.text)
-    console.log('result',result)
-    //删除特权属性
-    delete result.privilege
-    //判断用户是否注册wechat_user
+    //判断用户是否已注册wechat_user
     let user = await query('SELECT * FROM wechat_user WHERE openid = ?', obj.openid)
     console.log('user',user)
-    if (user.obj.length>0) {
-      query('UPDATE wechat_user SET ? WHERE openid = ?',[result,obj.openid])
-    }else query('INSERT INTO wechat_user SET ?',result)
+    if (user.obj.length == 0) {
+      //未注册则获取用户基本信息
+      // let result = await request('GET','https://api.weixin.qq.com/sns/userinfo?access_token=' + obj.access_token + '&openid=' + obj.openid + '&lang=zh_CN')
+      // result = JSON.parse(result.text)
+      // console.log('result',result)
+      // //删除特权属性
+      // delete result.privilege
+      // await query('UPDATE wechat_user SET ? WHERE openid = ?',[result,obj.openid])
+    }
+    
   }else{
     ctx.redirect('https://open.weixin.qq.com/connect/oauth2/authorize?appid='+wxid+'&redirect_uri='+url+'&response_type=code&scope=snsapi_userinfo&state=STATE&component_appid='+plat.appid+'#wechat_redirect')
   }
