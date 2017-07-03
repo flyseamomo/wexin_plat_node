@@ -35,6 +35,7 @@ module.exports = async (ctx,next)=>{
       let result = await request('GET','https://api.weixin.qq.com/sns/userinfo?access_token=' + obj.access_token + '&openid=' + obj.openid + '&lang=zh_CN')
       result = JSON.parse(result.text)
       console.log('result',result)
+      result.subscribe = 0
       //删除特权属性
       delete result.privilege
       await query('INSERT INTO wechat_user SET ?',result)
