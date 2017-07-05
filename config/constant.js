@@ -2,10 +2,10 @@
  * Created by Administrator on 2017/2/9.
  */
 const plat = {
-  appid: 'wxff01cbab75cfd7e2',
-  appsecret: 'ae421425c4bc03a1023ee73cd9e1a77b',
-  token: 'diandianysteam',
-  key: 'diandianysteamdiandianysteamdiandianysteam1'
+  appid: '',//your weixin mp_plat appid
+  appsecret: '',//your weixin mp_plat appsecret
+  token: '',//your weixin mp_plat token
+  key: '' //your weixin mp_plat key
 }
 
 module.exports = plat
