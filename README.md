@@ -5,6 +5,6 @@
     安装方式
     centos下  参考 http://blog.csdn.net/gaofuqi/article/details/26698547
 
-3.npm install
-4.node bin/run
-5.visit http://localhost:6001
+2.npm install
+3.node bin/run
+4.visit http://localhost:6001
