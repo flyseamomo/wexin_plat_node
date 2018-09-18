@@ -4,26 +4,26 @@ let sql, redisConfig
 
 if (process.env.NODE_ENV === 'production') { //生产环境
   sql = {
-    host: 'util-mysql',
+    host: ****,
     user: 'root',
-    password: 'root123',
-    database: 'weixin'
+    password: ****,
+    database: ****
   }
   redisConfig = {
-    host: 'util-redis',
+    host: ****,
     db: 0
   }
 } else { //测试环境
   sql = {
-    host: 'localhost',
+    host: ****,
     port: 3306,
     user: 'root',
-    password: '12345678',
+    password: ****,
     database: 'weixin'
   }
   redisConfig = {
-    host: '127.0.0.1',
-    port: 6379,
+    host: ****,
+    port: ****,
     db: 0
   }
 }
